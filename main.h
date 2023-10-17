@@ -103,8 +103,7 @@ int handle_pointer(char buffer[], int ind, int length,
 	int width, int flags, char padd, char extra_c, int padd_start);
 
 int handle_unsigned(int is_negative, int ind,
-char buffer[],
-	int flags, int width, int precision, int size);
+char buffer[],int flags, int width, int precision, int size);
 
 /****************** UTILS ******************/
 int is_printable(char);
