@@ -1,8 +1,8 @@
 #include "main.h"
 /**
- * handle_print - Prints an argument based on its type
+ * printf_handler_fun - Prints an argument based on its type
  * @fmt: Formatted string in which to print the arguments.
- * @list: List of arguments to be printed.
+ * @args: List of arguments to be printed.
  * @ind: ind.
  * @buffer: Buffer array to handle print.
  * @flags: Calculates active flags
@@ -11,22 +11,22 @@
  * @size: Size specifier
  * Return: 1 or 2;
  */
-int handle_print(const char *fmt, int *ind, va_list list, char buffer[],
+int printf_handler_fun(const char *fmt, int *ind, va_list args, char buffer[],
 	int flags, int width, int precision, int size)
 {
-	int b, unknow_len = 0, printed_chars = -1;
+	int i, unknow_len = 0, printed_values = -1;
 	fmt_t fmt_types[] = {
-		{'c', handle_char}, {'s', handle_string}, {'%', handle_percent},
-		{'i', handle_int}, {'d', handle_int}, {'b', handle_binary},
-		{'u', handle_unsigned}, {'o', handle_octal}, {'x', handle_hexadecimal},
-		{'X', handle_hexa_upper}, {'p', handle_pointer}, {'S', handle_non_printable},
-		{'r', handle_reverse}, {'R', handle_rot13string}, {'\0', NULL}
+		{'c', char_handler}, {'s', string_handler}, {'%', percent_handler},
+		{'i', int_handler}, {'d', int_handler}, {'b', binary_handler},
+		{'u', unsigned_handler}, {'o', octal_handler}, {'x', hex_handler},
+		{'X', upper_hex_handler}, {'p', pointer_handler}, {'S', handle_nont_a_value},
+		{'r', handle_reverse_fun}, {'R', handle_rot13string}, {'\0', NULL}
 	};
-	for (b = 0; fmt_types[b].fmt != '\0'; b++)
-		if (fmt[*ind] == fmt_types[b].fmt)
-			return (fmt_types[b].fn(list, buffer, flags, width, precision, size));
+	for (i = 0; fmt_types[i].fmt != '\0'; i++)
+		if (fmt[*ind] == fmt_types[i].fmt)
+			return (fmt_types[i].fn(args, buffer, flags, width, precision, size));
 
-	if (fmt_types[b].fmt == '\0')
+	if (fmt_types[i].fmt == '\0')
 	{
 		if (fmt[*ind] == '\0')
 			return (-1);
@@ -45,5 +45,5 @@ int handle_print(const char *fmt, int *ind, va_list list, char buffer[],
 		unknow_len += write(1, &fmt[*ind], 1);
 		return (unknow_len);
 	}
-	return (printed_chars);
+	return (printed_values);
 }
