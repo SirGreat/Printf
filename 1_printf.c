@@ -35,7 +35,8 @@ int unsigned_handler(va_list types, char buffer[],
 	return (handle_printf_unsigned(0, i, buffer, flags, width, precision, size));
 }
 
-/************* PRINT UNSIGNED NUMBER IN OCTAL  /
+/** PRINT UNSIGNED NUMBER IN OCTAL **/
+
 /**
  * octal_handler - Prints an unsigned number in octal notation
  * @types: List of arguments
